@@ -9,7 +9,12 @@
     <h2 style="text-align: center;">Noite em Coimbra</h2>
 
     <div style="margin-top: 100px;" class="container">
-      <table class="table">
+      <div>
+        <input type="text" name="nome" value="" placeholder="Nome" id="new-bar-name">
+        <input type="submit" name="votos" value="Adicionar" id="add-bar">
+      </div>
+
+      <table class="table" style="margin-top: 30px;">
         <thead>
           <tr>
             <th>Nome</th>
@@ -60,9 +65,17 @@
         tbody.appendChild(newTr);
       }
 
-      addNewBar('Moelas');
-      addNewBar('Piano Negro');
-      addNewBar('Low Cost');
+      // Obter o botão de Adicionar e <input> com o nome do novo Bar
+      var addButton = document.getElementById('add-bar');
+      var newBarName = document.getElementById('new-bar-name');
+
+      // Escutar o evento de 'click' e introduzir o novo bar na tabela
+      addButton.addEventListener('click', function(event) {
+        var newName = newBarName.value;
+
+        newBarName.value = '';
+        addNewBar(newName);
+      });
     </script>
   </body>
 </html>
