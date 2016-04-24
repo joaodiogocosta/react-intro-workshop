@@ -36,5 +36,33 @@
         </tbody>
       </table>
     </div>
+
+    <script type="text/javascript" charset="utf-8">
+      function addNewBar(nome) {
+        var tbody = document.querySelectorAll('table tbody')[0];
+
+        // Criar <td> para o nome
+        var nomeTd = document.createElement('TD');
+        var nomeText = document.createTextNode(nome);
+        nomeTd.appendChild(nomeText);
+
+        // Criar <td> para os votos
+        var votosTd = document.createElement('TD');
+        var votosText = document.createTextNode(0);
+        votosTd.appendChild(votosText);
+
+        // Criar <tr> para o novo bar
+        var newTr = document.createElement('TR');
+        newTr.appendChild(nomeTd);
+        newTr.appendChild(votosTd);
+
+        // Introduzir o novo <tr> na tabela
+        tbody.appendChild(newTr);
+      }
+
+      addNewBar('Moelas');
+      addNewBar('Piano Negro');
+      addNewBar('Low Cost');
+    </script>
   </body>
 </html>
