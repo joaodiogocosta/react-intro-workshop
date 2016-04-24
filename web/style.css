@@ -1,0 +1,29 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.bar {
+  width: 24%;
+  display: inline-block;
+  background-color: #DDD;
+  color: #222;
+  padding: 10px;
+  border-radius: 5px;
+  min-width: 200px;
+}
+
+.name {
+  float: left;
+}
+
+.votes {
+  float: right;
+  font-weight: bold;
+}
+
+.title {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
