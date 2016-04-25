@@ -16,6 +16,7 @@
 
       <div style="margin-top: 30px;">
         <span>Order by: </span>
+        <button id='order-name-button'>Name</button>
         <button id='order-button'>Votes</button>
       </div>
 
@@ -27,30 +28,43 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Bigorna</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>Twit</td>
-            <td>14</td>
-          </tr>
-          <tr>
-            <td>Cabido</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>NB</td>
-            <td>23</td>
-          </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- Dados iniciais -->
     <script type="text/javascript" charset="utf-8">
-      function addNewBar(nome, votes) {
-        var tbody = document.querySelectorAll('table tbody')[0];
+      var data = {
+        bares: [
+          {
+            name: 'Moelas',
+            votes: 5
+          },
+          {
+            name: 'NB',
+            votes: 27
+          },
+          {
+            name: 'Bigorna',
+            votes: 31
+          },
+          {
+            name: 'Cabido',
+            votes: 43
+          }
+        ]
+      }
 
+      function addBar(nome, votes) {
+        data.bares.push({
+          name: nome,
+          votes: votes || 0
+        });
+
+        renderBares();
+      }
+
+      function renderBar(nome, votes) {
         // Criar <td> para o nome
         var nomeTd = document.createElement('TD');
         var nomeText = document.createTextNode(nome);
@@ -67,9 +81,25 @@
         newTr.appendChild(votosTd);
 
         // Introduzir o novo <tr> na tabela
-        tbody.appendChild(newTr);
+        return newTr;
       }
 
+      function renderBares() {
+        var tbody = document.querySelectorAll('table tbody')[0];
+
+        tbody.innerHTML = '';
+        data.bares.forEach(function(bar) {
+          var newBarElement = renderBar(bar.name, bar.votes);
+          tbody.appendChild(newBarElement);
+        });
+      }
+
+      renderBares();
+    </script>
+
+
+    <!-- Adicionar novo bar -->
+    <script type="text/javascript" charset="utf-8">
       // Obter o botão de Adicionar e <input> com o nome do novo Bar
       var addButton = document.getElementById('add-bar');
       var newBarName = document.getElementById('new-bar-name');
@@ -79,43 +109,44 @@
         var newName = newBarName.value;
 
         newBarName.value = '';
-        addNewBar(newName);
+        addBar(newName);
       });
     </script>
 
+
+    <!-- Ordenar bares por votos -->
     <script type="text/javascript" charset="utf-8">
       function orderByVotes() {
-        var bares = document.querySelectorAll('tbody tr');
-
-        // Transformar bares (atualmente um NodeList) num Array
-        var baresArray = [];
-        for (var i = 0; i < bares.length; i++) {
-          baresArray.push(bares[i]);
-        }
-
         // Ordenar a lista de bares pelo numero de votos
-        var ordered = baresArray.sort(function(barPrevious, barNext) {
-          var votesPrevious = barPrevious.querySelectorAll('td')[1].innerText;
-          var votesNext = barNext.querySelectorAll('td')[1].innerText;
-
-          return votesNext - votesPrevious;
+        var ordered = data.bares.sort(function(barPrevious, barNext) {
+          return barNext.votes - barPrevious.votes;
         });
 
-        // Substituir a lista atual pela lista ordenada
-        var tbody = document.querySelectorAll('tbody')[0];
-        tbody.innerHTML = '';
-
-        ordered.forEach(function(bar) {
-          var name = bar.querySelectorAll('td')[0].innerText;
-          var votes = bar.querySelectorAll('td')[1].innerText;
-
-          addNewBar(name, votes);
-        });
+        data.bares = ordered;
+        renderBares();
       }
 
       // Escutar o evento de 'click' e ordenar bares por votos
       var orderButton = document.getElementById('order-button');
       orderButton.addEventListener('click', orderByVotes);
+    </script>
+
+
+    <!-- Ordernar bares por nome -->
+    <script type="text/javascript" charset="utf-8">
+      function orderByName() {
+        // Ordenar a lista de bares pelo numero de votos
+        var ordered = data.bares.sort(function(barPrevious, barNext) {
+          return barPrevious.name.localeCompare(barNext.name);
+        });
+
+        data.bares = ordered;
+        renderBares();
+      }
+
+      // Escutar o evento de 'click' e ordenar bares por votos
+      var orderNameButton = document.getElementById('order-name-button');
+      orderNameButton.addEventListener('click', orderByName);
     </script>
   </body>
 </html>
