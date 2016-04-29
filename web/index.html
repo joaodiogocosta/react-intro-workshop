@@ -48,28 +48,13 @@
       var barListEl = document.getElementById('bar-list');
 
       function renderBar(name, votes) {
-        // Create 'bar' HTML element
-        var barEl = document.createElement('DIV');
-        barEl.className = 'bar';
+        var template = "";
+        template    += "<div class='bar'>"
+        template    += "<span class='name'>" + name + "</span>";
+        template    += "<span class='votes'>" + votes + "</span>";
+        template    += "</div>";
 
-        // Create 'name' HTML element
-        var nameEl = document.createElement('SPAN');
-        nameEl.className = 'name';
-        var nameText = document.createTextNode(name);
-        nameEl.appendChild(nameText);
-
-        // Create 'votes' HTML element
-        var votesEl = document.createElement('SPAN');
-        votesEl.className = 'votes';
-        var votesText = document.createTextNode(votes || 0);
-        votesEl.appendChild(votesText);
-
-        // Append 'name' and 'votes' to 'bar'
-        barEl.appendChild(nameEl);
-        barEl.appendChild(votesEl);
-
-        // Append 'bar' to 'bar-list'
-        barListEl.appendChild(barEl);
+        barListEl.innerHTML = barListEl.innerHTML + template;
       }
 
       // Render data.bars
