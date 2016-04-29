@@ -4,16 +4,22 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Noite em Coimbra</title>
     <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
   </head>
   <body>
     <h2 class="title">Noite em Coimbra</h2>
 
     <div class="container">
+      Not implemented:
       <div class="new-bar-wrapper">
         <input type="text" name="new-bar" id="new-bar-input" placeholder="Moelas">
         <button id="new-bar-button">Create</button>
       </div>
 
+      Not implemented:
       <div class="order-bars-wrapper">
         Order by: <button id="order-by-votes-button">Votes</button>
       </div>
@@ -22,95 +28,6 @@
       </div>
     </div>
 
-    <!-- render default data -->
-    <script type="text/javascript" charset="utf-8">
-      var data = {
-        bars: [
-          {
-            name: 'NB',
-            votes: 10
-          },
-          {
-            name: 'Bigorna',
-            votes: 100
-          },
-          {
-            name: 'Moelas',
-            votes: 78
-          },
-          {
-            name: 'Whats Up Doc',
-            votes: 55
-          }
-        ]
-      };
-
-      var barListEl = document.getElementById('bar-list');
-
-      function renderBar(name, votes) {
-        var template = "";
-        template    += "<div class='bar'>"
-        template    += "<span class='name'>" + name + "</span>";
-        template    += "<span class='votes'>" + votes + "</span>";
-        template    += "</div>";
-
-        barListEl.innerHTML = barListEl.innerHTML + template;
-      }
-
-      // Render data.bars
-      function renderBars() {
-        barListEl.innerHTML = '';
-
-        data.bars.forEach(function(bar) {
-          renderBar(bar.name, bar.votes);
-        });
-      }
-
-      // Render bars for the first time
-      renderBars();
-    </script>
-
-    <!-- Create new bar dinamically -->
-    <script type="text/javascript" charset="utf-8">
-      // Find HTML elements
-      var newBarButton = document.getElementById('new-bar-button');
-      var newBarInput  = document.getElementById('new-bar-input');
-
-      function addBar(name) {
-        data.bars.push({
-          name: name,
-          votes: 0
-        });
-      }
-
-      // Bind click event to newBarButton
-      newBarButton.addEventListener('click', function() {
-
-        // Add new bar to the list
-        var name = newBarInput.value;
-        addBar(name);
-        renderBars();
-
-        // Clear input box
-        newBarInput.value = '';
-      });
-    </script>
-
-    <!-- Create new bar dinamically -->
-    <script type="text/javascript" charset="utf-8">
-      var orderButton = document.getElementById('order-by-votes-button');
-      var barListEl   = document.getElementById('bar-list');
-
-      function orderByVotes() {
-        data.bars = data.bars.sort(function(a, b) {
-          return b.votes - a.votes;
-        });
-      }
-
-      orderButton.addEventListener('click', function() {
-        orderByVotes();
-        renderBars();
-      });
-    </script>
+    <script type="text/babel" charset="utf-8" src="app.js.jsx"></script>
   </body>
 </html>
