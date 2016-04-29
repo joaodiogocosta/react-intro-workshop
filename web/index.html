@@ -19,33 +19,35 @@
       </div>
 
       <div id="bar-list">
-        <div class="bar">
-          <span class="name">NB</span>
-          <span class="votes">10</span>
-        </div>
-        <div class="bar">
-          <span class="name">Bigorna</span>
-          <span class="votes">100</span>
-        </div>
-        <div class="bar">
-          <span class="name">Moelas</span>
-          <span class="votes">89</span>
-        </div>
-        <div class="bar">
-          <span class="name">What's Up Doc</span>
-          <span class="votes">50</span>
-        </div>
       </div>
     </div>
 
-    <!-- Create new bar dinamically -->
+    <!-- render default data -->
     <script type="text/javascript" charset="utf-8">
-      // Find HTML elements
-      var newBarButton = document.getElementById('new-bar-button');
-      var newBarInput  = document.getElementById('new-bar-input');
-      var barListEl    = document.getElementById('bar-list');
+      var data = {
+        bars: [
+          {
+            name: 'NB',
+            votes: 10
+          },
+          {
+            name: 'Bigorna',
+            votes: 100
+          },
+          {
+            name: 'Moelas',
+            votes: 78
+          },
+          {
+            name: 'Whats Up Doc',
+            votes: 55
+          }
+        ]
+      };
 
-      function addBar(name, votes) {
+      var barListEl = document.getElementById('bar-list');
+
+      function renderBar(name, votes) {
         // Create 'bar' HTML element
         var barEl = document.createElement('DIV');
         barEl.className = 'bar';
@@ -70,12 +72,39 @@
         barListEl.appendChild(barEl);
       }
 
+      // Render data.bars
+      function renderBars() {
+        barListEl.innerHTML = '';
+
+        data.bars.forEach(function(bar) {
+          renderBar(bar.name, bar.votes);
+        });
+      }
+
+      // Render bars for the first time
+      renderBars();
+    </script>
+
+    <!-- Create new bar dinamically -->
+    <script type="text/javascript" charset="utf-8">
+      // Find HTML elements
+      var newBarButton = document.getElementById('new-bar-button');
+      var newBarInput  = document.getElementById('new-bar-input');
+
+      function addBar(name) {
+        data.bars.push({
+          name: name,
+          votes: 0
+        });
+      }
+
       // Bind click event to newBarButton
       newBarButton.addEventListener('click', function() {
 
         // Add new bar to the list
         var name = newBarInput.value;
         addBar(name);
+        renderBars();
 
         // Clear input box
         newBarInput.value = '';
@@ -88,34 +117,14 @@
       var barListEl   = document.getElementById('bar-list');
 
       function orderByVotes() {
-        // Get all bar HTML elements
-        var barEls = document.querySelectorAll('.bar');
-
-        // Extract data from HTML to a variable => barList
-        var barList = [];
-        for (var i = 0; i < barEls.length; i++) {
-          var _bar = barEls[i];
-          var name  = _bar.querySelectorAll('.name')[0].innerHTML;
-          var votes = _bar.querySelectorAll('.votes')[0].innerHTML;
-
-          barList[i] = { name: name, votes: parseInt(votes) };
-        }
-
-        // Order barList by 'votes'
-        barList = barList.sort(function(a, b) {
+        data.bars = data.bars.sort(function(a, b) {
           return b.votes - a.votes;
         });
-
-        // Replace unordered bars by ordered bars in HTML
-        barListEl.innerHTML = '';
-        for (var j = 0; j < barList.length; j++) {
-          var _bar = barList[j];
-          addBar(_bar.name, _bar.votes);
-        }
       }
 
       orderButton.addEventListener('click', function() {
         orderByVotes();
+        renderBars();
       });
     </script>
   </body>
