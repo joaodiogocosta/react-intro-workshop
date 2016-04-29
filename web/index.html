@@ -14,6 +14,10 @@
         <button id="new-bar-button">Create</button>
       </div>
 
+      <div class="order-bars-wrapper">
+        Order by: <button id="order-by-votes-button">Votes</button>
+      </div>
+
       <div id="bar-list">
         <div class="bar">
           <span class="name">NB</span>
@@ -34,13 +38,14 @@
       </div>
     </div>
 
+    <!-- Create new bar dinamically -->
     <script type="text/javascript" charset="utf-8">
       // Find HTML elements
       var newBarButton = document.getElementById('new-bar-button');
       var newBarInput  = document.getElementById('new-bar-input');
       var barListEl    = document.getElementById('bar-list');
 
-      function addBar(name) {
+      function addBar(name, votes) {
         // Create 'bar' HTML element
         var barEl = document.createElement('DIV');
         barEl.className = 'bar';
@@ -54,7 +59,7 @@
         // Create 'votes' HTML element
         var votesEl = document.createElement('SPAN');
         votesEl.className = 'votes';
-        var votesText = document.createTextNode(0);
+        var votesText = document.createTextNode(votes || 0);
         votesEl.appendChild(votesText);
 
         // Append 'name' and 'votes' to 'bar'
@@ -74,6 +79,43 @@
 
         // Clear input box
         newBarInput.value = '';
+      });
+    </script>
+
+    <!-- Create new bar dinamically -->
+    <script type="text/javascript" charset="utf-8">
+      var orderButton = document.getElementById('order-by-votes-button');
+      var barListEl   = document.getElementById('bar-list');
+
+      function orderByVotes() {
+        // Get all bar HTML elements
+        var barEls = document.querySelectorAll('.bar');
+
+        // Extract data from HTML to a variable => barList
+        var barList = [];
+        for (var i = 0; i < barEls.length; i++) {
+          var _bar = barEls[i];
+          var name  = _bar.querySelectorAll('.name')[0].innerHTML;
+          var votes = _bar.querySelectorAll('.votes')[0].innerHTML;
+
+          barList[i] = { name: name, votes: parseInt(votes) };
+        }
+
+        // Order barList by 'votes'
+        barList = barList.sort(function(a, b) {
+          return b.votes - a.votes;
+        });
+
+        // Replace unordered bars by ordered bars in HTML
+        barListEl.innerHTML = '';
+        for (var j = 0; j < barList.length; j++) {
+          var _bar = barList[j];
+          addBar(_bar.name, _bar.votes);
+        }
+      }
+
+      orderButton.addEventListener('click', function() {
+        orderByVotes();
       });
     </script>
   </body>
