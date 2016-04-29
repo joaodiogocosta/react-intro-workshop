@@ -4,13 +4,15 @@
 }
 
 .bar {
-  width: 24%;
-  display: inline-block;
+  width: 20%;
+  float: left;
+  padding: 10px;
+  min-width: 200px;
+  margin-left: 10px;
+  margin-top: 10px;
   background-color: #DDD;
   color: #222;
-  padding: 10px;
   border-radius: 5px;
-  min-width: 200px;
 }
 
 .name {
@@ -26,4 +28,8 @@
   text-align: center;
   margin-top: 30px;
   margin-bottom: 100px;
+}
+
+.new-bar-wrapper {
+  margin-bottom: 30px;
 }

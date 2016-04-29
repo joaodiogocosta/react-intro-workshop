@@ -3,29 +3,78 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Noite em Coimbra</title>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <h2 class="title">Noite em Coimbra</h2>
 
     <div class="container">
-      <div class="bar">
-        <span class="name">NB</span>
-        <span class="votes">10</span>
+      <div class="new-bar-wrapper">
+        <input type="text" name="new-bar" id="new-bar-input" placeholder="Moelas">
+        <button id="new-bar-button">Create</button>
       </div>
-      <div class="bar">
-        <span class="name">Bigorna</span>
-        <span class="votes">100</span>
-      </div>
-      <div class="bar">
-        <span class="name">Moelas</span>
-        <span class="votes">89</span>
-      </div>
-      <div class="bar">
-        <span class="name">What's Up Doc</span>
-        <span class="votes">50</span>
+
+      <div id="bar-list">
+        <div class="bar">
+          <span class="name">NB</span>
+          <span class="votes">10</span>
+        </div>
+        <div class="bar">
+          <span class="name">Bigorna</span>
+          <span class="votes">100</span>
+        </div>
+        <div class="bar">
+          <span class="name">Moelas</span>
+          <span class="votes">89</span>
+        </div>
+        <div class="bar">
+          <span class="name">What's Up Doc</span>
+          <span class="votes">50</span>
+        </div>
       </div>
     </div>
+
+    <script type="text/javascript" charset="utf-8">
+      // Find HTML elements
+      var newBarButton = document.getElementById('new-bar-button');
+      var newBarInput  = document.getElementById('new-bar-input');
+      var barListEl    = document.getElementById('bar-list');
+
+      function addBar(name) {
+        // Create 'bar' HTML element
+        var barEl = document.createElement('DIV');
+        barEl.className = 'bar';
+
+        // Create 'name' HTML element
+        var nameEl = document.createElement('SPAN');
+        nameEl.className = 'name';
+        var nameText = document.createTextNode(name);
+        nameEl.appendChild(nameText);
+
+        // Create 'votes' HTML element
+        var votesEl = document.createElement('SPAN');
+        votesEl.className = 'votes';
+        var votesText = document.createTextNode(0);
+        votesEl.appendChild(votesText);
+
+        // Append 'name' and 'votes' to 'bar'
+        barEl.appendChild(nameEl);
+        barEl.appendChild(votesEl);
+
+        // Append 'bar' to 'bar-list'
+        barListEl.appendChild(barEl);
+      }
+
+      // Bind click event to newBarButton
+      newBarButton.addEventListener('click', function() {
+
+        // Add new bar to the list
+        var name = newBarInput.value;
+        addBar(name);
+
+        // Clear input box
+        newBarInput.value = '';
+      });
+    </script>
   </body>
 </html>
