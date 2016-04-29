@@ -24,7 +24,25 @@ var BarList = React.createClass({
     return { bars: bars };
   },
 
-  renderBars: function() {
+  orderByVotes: function() {
+    var bars = this.state.bars;
+
+    var orderedBars = bars.sort(function(a, b) {
+      return b.votes - a.votes;
+    });
+
+    this.setState({ bars: orderedBars });
+  },
+
+  renderOrderBox: function() {
+    return (
+      <div className="order-bars-wrapper">
+        Order by: <button id="order-by-votes-button" onClick={this.orderByVotes}>Votes</button>
+      </div>
+    );
+  },
+
+   renderBars: function() {
     var bars = this.state.bars;
 
     return bars.map(function(bar) {
@@ -40,6 +58,7 @@ var BarList = React.createClass({
   render: function() {
     return (
       <div>
+        {this.renderOrderBox()}
         {this.renderBars()}
       </div>
     );
