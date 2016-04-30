@@ -1,0 +1,20 @@
+{
+  "bars": [
+    {
+      "name": "Moelas",
+      "votes": 100
+    },
+    {
+      "name": "NB",
+      "votes": 50
+    },
+    {
+      "name": "Bigorna",
+      "votes": 110
+    },
+    {
+      "name": "Whats Up Doc",
+      "votes": 20
+    }
+  ]
+}

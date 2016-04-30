@@ -55,26 +55,13 @@ var OrderBox = React.createClass({
 var BarApp = React.createClass({
 
   getInitialState: function() {
-    var bars = [
-      {
-        name: 'Moelas',
-        votes: 100
-      },
-      {
-        name: 'NB',
-        votes: 50
-      },
-      {
-        name: 'Bigorna',
-        votes: 110
-      },
-      {
-        name: 'Whats Up Doc',
-        votes: 12
-      }
-    ];
+    return { bars: [] };
+  },
 
-    return { bars: bars };
+  componentDidMount: function() {
+    $.getJSON('data.json', function(data) {
+      this.setState({ bars: data.bars });
+    }.bind(this));
   },
 
   orderByVotes: function() {
